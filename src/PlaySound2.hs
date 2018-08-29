@@ -42,7 +42,7 @@ withAudio actions = do
   SDL.Mixer.withAudio audio 4096 actions
 
 {-| Loads a given music file to a `SDL.Mixer.Music` type that can be played. -}
-loadMusic :: MonadIO m => String -> m Music
+loadMusic :: MonadIO m => FilePath -> m Music
 loadMusic = SDL.Mixer.load
 
 {-| Plays a given `SDL.Mixer.Music` instance once (in the background, program continues).-}
@@ -58,7 +58,7 @@ playAudioLoop m = do
     SDL.Mixer.playMusic SDL.Mixer.Forever m
 
 {-| Performs loading/freeing an audio file around the given actions. --}
-whilePlayingAudio :: MonadIO m => String -> m a -> m a
+whilePlayingAudio :: MonadIO m => FilePath -> m a -> m a
 whilePlayingAudio file actions = do
   m <- loadMusic file
   playAudio m
@@ -67,7 +67,7 @@ whilePlayingAudio file actions = do
   return result
 
 {-| Plays the given file, and blocks the program from continuing until playback has finished. -}
-playFile :: (MonadIO m) => String -> m ()
+playFile :: (MonadIO m) => FilePath -> m ()
 playFile filename =
   whilePlayingAudio filename waitUntilSoundsFinished
 
