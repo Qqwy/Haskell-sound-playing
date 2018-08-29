@@ -1,4 +1,3 @@
-{-# LANGUAGE FlexibleContexts           #-}
 module PlaySound (withSound, playSound) where
 
 import Control.Monad
